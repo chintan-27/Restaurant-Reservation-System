@@ -90,7 +90,7 @@ class Restaurant(models.Model):
     ratingbyhygiene = models.PositiveIntegerField(default = 0, validators = [MinValueValidator(1),MaxValueValidator(5)])
 
     def __str__(self):
-        return self.username
+        return self.restaurant_name
 
 class RestaurantTables(models.Model):
     restaurant_id = models.ForeignKey(Restaurant, on_delete = models.CASCADE)
