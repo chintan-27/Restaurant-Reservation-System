@@ -1,0 +1,288 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+<nav>
+  <ul>
+    <a href="/" class="logo"> <img src="{% static 'img/logo.jpg' %}" alt=""> </a>
+    <li> <a href="/">Home</a> </li>
+    {% if user.is_authenticated %}
+    <li> <a href="{% url "logout" %}">Logout</a> </li>
+    <li> <a href="{% url 'Dashboard' %}">Dashboard</a> </li>
+    {% if request.user.is_admin %}
+    <li> <a href="/registerhotel">Hotel Sign Up</a> </li>
+    {% endif %}
+    {% else %}
+    <li> <a href="{% url 'login_url' %}">Login</a> </li>
+    <li> <a href="/register">Sign Up</a> </li>
+    <li> <a href="/accounts/login">Hotel Login</a> </li>
+    {% endif %}
+    <li> <a href="#">About us</a> </li>
+  </ul>
+</nav>
+<div class="" style="height:70px">
+
+</div>
+<header>
+  <br><br><br><br>
+<center>
+  <div class="" style="width:40%;background:#fcfcfc;padding:30px;border-radius:5px;box-shadow:3px 3px 10px #0004;">
+    <h2 class="login-h1">EXPLORE</h2>
+    <br>
+  <select class="d-form" name="" onchange="myFunction()" id="day">
+    <option value="TODAY">TODAY</option>
+    <option value="TOMORROW">TOMORROW</option>
+    <option value="DAY AFTER">DAY AFTER</option>
+  </select>
+  <select class="d-form" name="start_time" id="list_start"></select>
+  <select class="d-form" name="end_time" id="list_end"></select>
+  <select class="d-form" name="persons" id="persons">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+  </select>
+<br>
+<a href="" onclick="propogate(this)" class="btn" style="width:100%;color:#fff;">
+  <div class="clean-btn">
+  CHECK AVAILABILITY
+</div>
+</a>
+  <br>
+</div>
+</center>
+
+</header>
+<div class="" style="height:80vh">
+
+</div>
+<div class="container">
+<div class="row">
+{% for i in restaurants  %}
+   <div class="col-md-4" style="">
+     {% for k in availability %}
+     {% ifequal k.0 i.restaurant_name %}
+     {% ifequal k|last "Unavailable" %}
+     <div class="cover">
+       <p>Unavailable</p>
+     </div>
+     {% endifequal %}
+     {% endifequal %}
+     {% endfor %}
+     <a href="/tables/{{i.restaurant_id}}/{{day}}/{{start_time}}/{{end_time}}/{{persons}}" class="rl">
+     <div class="restaurant">
+     {% for j in restaurantphotos %}
+     {% ifequal j.restaurant_name.restaurant_name i.restaurant_name %}
+     <img src="/media/{{j.photos}}" alt="" style="width:100%;height:200px" >
+     {% endifequal %}
+     {% endfor %}
+     <p class="name">{{i.restaurant_name}}</p>
+     <p class="desc">{{i.description}}</p>
+     <div class="b">
+
+     </div>
+     <p class="city">{{i.city}}</p>
+     <div class="rating">
+       <p class="">{{i.ratingbyfood}}.0</p>
+     </div>
+     <div class="loc">
+       <p>{{i.location.location}}</p>
+     </div>
+
+   </div>
+ </a>
+   </div>
+ {% endfor %}
+</div>
+</div>
+<br><br>
+<footer>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{% static '/img/logo.jpg' %}" style="box-shadow:2px 3px 5px #0005" alt="" height="50px">
+      <br><br>
+      <p style="color:#cdcdcd; font-size:13px">
+        Restaurant reservation website . Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <br>
+      <p style="color:#fcfcfc; font-size:20px;letter-spacing:5px;">FOLLOW US
+      <div class="">
+
+         <a href="#" style="margin:10px 10px 10px 0px;"><ion-icon style="font-size:25px; color:#cdcdcd;"name="logo-facebook"></ion-icon></a>
+         <a href="#" style="margin:10px;"><ion-icon style="font-size:25px; color:#cdcdcd;"name="logo-instagram"></ion-icon></a>
+         <a href="#" style="margin:10px;"><ion-icon style="font-size:25px; color:#cdcdcd;"name="logo-twitter"></ion-icon></a>
+        <a href="#" style="margin:10px;"><ion-icon style="font-size:25px; color:#cdcdcd;"name="logo-google-playstore"></ion-icon></a>
+      </div>
+    </p>
+    <br>
+
+    </div>
+    <div class="col-md-2">
+      <h4 style="color:#fcfcfc; font-size:25px;">USEFUL LINKS</h4>
+      <br>
+      <a href="#" class="btn" style="color:#cdcdcd; ">ABOUT</a><br>
+      <a href="#" class="btn" style="color:#cdcdcd; ">LOGIN</a><br>
+      <a href="#" class="btn" style="color:#cdcdcd; ">SIGN UP</a><br>
+    </div>
+    <div class="col-md-4">
+      <h4 style="color:#fcfcfc; font-size:25px;">CONTACT INFO</h4>
+      <a class="btn" style="color:#cdcdcd; "><ion-icon style="transform:translateY(2px);" name="calculator-outline"></ion-icon>&nbsp&nbsp&nbsp +91 93820 38092</a><br>
+      <a class="btn" style="color:#cdcdcd; "><ion-icon style="transform:translateY(2px);" name="mail-outline"></ion-icon>&nbsp&nbsp&nbsp contact@restaurante.com</a><br>
+<br><br>
+    <a href="{% url 'login_url' %}" class="btn" style="width:100%;color:#fff;">
+      <div class="clean-btn">
+      LOGIN
+    </div>
+    </a>
+  </div>
+
+  </div>
+<div class="b" style="background:#fff3">
+
+</div>
+<div class="end">
+  <a href="#">Terms and Conditions </a> | <a href="#">Privacy</a> | <a href="#">2020 &#169; Restaurante</a>
+</div>
+<br>
+</div>
+</footer>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+  var start_time = [];
+  var end_time = [];
+  var d = new Date();
+  var n = d.getHours();
+  for(var i = n+1; i < 24; i++){
+    if(i<9){
+      start_time.push("0"+i.toString() + " : 00")
+      end_time.push("0"+(i+1).toString() + " : 00")
+    }else if(i==9){
+      start_time.push("0"+i.toString() + " : 00")
+      end_time.push((i+1).toString() + " : 00")
+    }else if(i==23){
+      start_time.push(i.toString() + " : 00")
+      end_time.push("00 : 00")
+    }else{
+      start_time.push(i.toString() + " : 00")
+      end_time.push((i+1).toString() + " : 00")
+    }
+  }
+
+var x = document.getElementById("list_start");
+var y = document.getElementById("list_end");
+for(var i=0;i<start_time.length;i++){
+  var option = document.createElement("option");
+  option.text = start_time[i];
+  option.value = start_time[i].split(" ").join("");
+  x.add(option);
+  var option1 = document.createElement("option");
+  option1.text = end_time[i];
+  option1.value = end_time[i].split(" ").join("");
+  y.add(option1);
+}
+function myFunction() {
+  var start_time = [];
+  var end_time = [];
+  var day = document.getElementById('day').value;
+  if(day=="TODAY"){
+    for(var i = n+1; i < 24; i++){
+      if(i<9){
+        start_time.push("0"+i.toString() + " : 00")
+        end_time.push("0"+(i+1).toString() + " : 00")
+      }else if(i==9){
+        start_time.push("0"+i.toString() + " : 00")
+        end_time.push((i+1).toString() + " : 00")
+      }else if(i==23){
+        start_time.push(i.toString() + " : 00")
+        end_time.push("00 : 00")
+      }else{
+        start_time.push(i.toString() + " : 00")
+        end_time.push((i+1).toString() + " : 00")
+      }
+      var x = document.getElementById("list_start");
+      x.innerHTML = "";
+      var y = document.getElementById("list_end");
+      y.innerHTML = ""
+      for(var i=0;i<start_time.length;i++){
+        var option = document.createElement("option");
+        option.text = start_time[i];
+        option.value = start_time[i].split(" ").join("");
+        x.add(option);
+        var option1 = document.createElement("option");
+        option1.text = end_time[i];
+        option1.value = end_time[i].split(" ").join("");
+        y.add(option1);
+      }
+    }
+  }else{
+      for(var i = 9; i < 24; i++){
+        if(i<9){
+          start_time.push("0"+i.toString() + " : 00")
+          end_time.push("0"+(i+1).toString() + " : 00")
+        }else if(i==9){
+          start_time.push("0"+i.toString() + " : 00")
+          end_time.push((i+1).toString() + " : 00")
+        }else if(i==23){
+          start_time.push(i.toString() + " : 00")
+          end_time.push("00 : 00")
+        }else{
+          start_time.push(i.toString() + " : 00")
+          end_time.push((i+1).toString() + " : 00")
+        }
+      }
+      var x = document.getElementById("list_start");
+      x.innerHTML = "";
+      var y = document.getElementById("list_end");
+      y.innerHTML = "";
+      for(var i=0;i<start_time.length;i++){
+        var option = document.createElement("option");
+        option.text = start_time[i];
+        option.value = start_time[i].split(" ").join("");
+        x.add(option);
+        var option1 = document.createElement("option");
+        option1.text = end_time[i];
+        option1.value = end_time[i].split(" ").join("");
+        y.add(option1);
+      }
+    }
+}
+
+function propogate(e){
+  var day = document.getElementById('day').value;
+  var list_start = document.getElementById('list_start').value;
+  var list_end = document.getElementById('list_end').value;
+  var persons = document.getElementById('persons').value;
+  if(list_start == list_end){
+    alert("Enter Valid Time");
+  }else{
+    e.href = "/search/"+day+"/"+list_start+"/"+list_end+"/"+persons+"/";
+  }
+}
+
+{% if start_time %}
+x.value = "{{start_time}}";
+{% endif %}
+{% if end_time %}
+y.value = "{{end_time}}"
+{% endif %}
+{% if day %}
+document.getElementById("day").value = "{{day}}";
+{% endif %}
+{% if persons %}
+document.getElementById("persons").value = "{{persons}}";
+{% endif %}
+</script>
+{% endblock %}

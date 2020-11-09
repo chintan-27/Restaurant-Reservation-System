@@ -1,34 +1,46 @@
 {% extends 'index.html' %}
 {% block content %}
-<div class="v">
-  <div class="container"><br><br>
-    <h1 class="ht"> CREATE NEW ACCOUNT</h1><br><br>
-    <div class="row">
-      <div class="col-md-3"></div>
-      <div class="form col-md-6 p-3 shadow-lg bg-light">
-        <form class="form-group" method="POST">
-          {% csrf_token %}
-          {{form.as_p}}
-        <button class="btn btn-primary"> REGISTER</button>
-        </form>
-      </div>
-    <div class="col-md-3"></div>
-    </div>
-  </div>
-  <br><br><br>
-</div>
+{% load static %}
 
-<style >
-  .btn{
-    margin-left:200px;
-  }
-  .ht{
-    font-family:'Viga';
-    margin-left:30%;
-  }
-  .v{
-    background:linear-gradient(to right,#ffd3b6,#a8e6cf,#dcedc1);
-  }
-</style>
+<div class="login" style="width:99%;">
+<div class="row">
+  <div class="col-md-3" style="margin:0">
+    <br><br>
+    <center>
+      <h1 class="login-h1">Register</h1>
+      </center>
+    <br>
+      <form class="form-group" method="POST">
+        {% csrf_token %}
+        {% for i in form %}
+        <div class="label-login">
+          {{i.label_tag }}
+        </div>
+        <center>
+        {{i}}
+      </center>
+        {% endfor %}
+        <center>
+    <br> <button class="btn clean-btn" style="background:#ff8989;width:60%;color:#fff">R E G I S T E R</button>
+  </center>
+      </form>
+      <br>
+      <center>
+      Already have an account ? <a href="/accounts/login/">Login</a>
+    </center><br><br>
+  </div>
+  <br><br>
+  <div class="col-md-9" style="height:100vh;background:url('{% static 'img/bg3.jpg' %}');  background-attachment:fixed;background-position: center;background-size: cover; position:fixed;right:0;top:0;">
+    <br><br>
+    <center>
+    <a href="/">
+      <img src="{% static 'img/logo.jpg' %}"  alt="" height="50px" style="box-shadow:4px 4px 8px #0004;">
+    </a>
+    </center>
+  </div>
+</div>
+</div>
+</div>
+</div>
 
 {% endblock %}

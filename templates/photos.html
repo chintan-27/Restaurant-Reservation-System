@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+<div class="login" style="width:99%;">
+<div class="row">
+  <div class="col-md-3" style="margin:0">
+    <br><br>
+    <center>
+      <h1 class="login-h1">ADD PHOTO</h1>
+      </center>
+    <br>
+      <form class="form-group" method="POST">
+        {% csrf_token %}
+        {% for i in form %}
+        <div class="label-login">
+          {{i.label_tag }}
+        </div>
+        <center>
+        {{i}}
+      </center>
+        {% endfor %}
+        <center>
+    <br> <button class="btn clean-btn" style="background:#ff8989;width:60%;color:#fff">S U B M I T</button>
+  </center>
+      </form>
+      <br>
+  </div>
+  <div class="col-md-9" style="height:100vh;background:url('{% static 'img/bg2.jpg' %}'); background-attachment:fixed;background-position:center;background-size: cover;position:fixed;top:0;right:0;">
+
+      <br><br>
+      <center>
+      <a href="/">
+        <img src="{% static 'img/logo.jpg' %}"  alt="" height="50px" style="box-shadow:4px 4px 8px #0004;">
+      </a>
+      </center>
+    </div>
+</div>
+</div>
+{% endblock %}

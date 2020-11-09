@@ -1,0 +1,132 @@
+{% extends "index.html" %}
+{% load static %}
+{% block content %}
+<nav>
+  <ul>
+    <a href="/" class="logo"> <img src="{% static 'img/logo.jpg' %}" alt=""> </a>
+    <li> <a href="/">Home</a> </li>
+    {% if user.is_authenticated %}
+    <li> <a href="{% url "logout" %}">Logout</a> </li>
+    <li> <a href="{% url 'Dashboard' %}">Dashboard</a> </li>
+    {% if request.user.is_superuser %}
+    <li> <a href="/registerhotel">Hotel Sign Up</a> </li>
+    {% endif %}
+    {% else %}
+    <li> <a href="{% url 'login_url' %}">Login</a> </li>
+    <li> <a href="/register">Sign Up</a> </li>
+    <li> <a href="/accounts/login">Hotel Login</a> </li>
+    {% endif %}
+    <li> <a href="#">About us</a> </li>
+  </ul>
+</nav>
+<div class="" style="height:70px">
+
+</div>
+<header style="height:30vh;">
+<center>
+  <h1 style="margin-top:100px;">DASHBOARD</h1>
+</center>
+
+</header>
+<div class=""style="height:30vh">
+
+</div>
+
+<div class="container">
+  <div class="row table-row head-row">
+    <div class="col-md-3 cell head-cell">
+      NAME
+    </div>
+    <div class="col-md-2 cell head-cell">
+      DATE:
+    </div>
+    <div class="col-md-2 cell head-cell">
+      FROM :
+    </div>
+    <div class="col-md-2 cell head-cell">
+      TILL:
+    </div>
+    <div class="col-md-3 cell head-cell">
+
+    </div>
+  </div>
+  {% for i in reservations %}
+  <div class="row table-row">
+    <div class="col-md-3 cell">
+      {{i.restaurant_id.restaurant_name}}
+    </div>
+    <div class="col-md-2 cell">
+      {{i.date}}
+    </div>
+    <div class="col-md-2 cell">
+      {{i.start_time}}
+    </div>
+    <div class="col-md-2 cell">
+      {{i.end_time}}
+    </div>
+    <div class="col-md-3 cell">
+      {% if i.done %}
+      <a class="btn btn-primary" href="/review/{{i.restaurant_id.restaurant_id}}">Review</a>
+      <a class="btn btn-primary" href="/rphotos/{{i.restaurant_id.restaurant_id}}">Add Photos</a>
+      {% else %}
+      {{i.otp}}
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}<br><br>
+</div>
+
+
+<footer>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{% static '/img/logo.jpg' %}" style="box-shadow:2px 3px 5px #0005" alt="" height="50px">
+      <br><br>
+      <p style="color:#cdcdcd; font-size:13px">
+        Restaurant reservation website . Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <br>
+      <p style="color:#fcfcfc; font-size:20px;letter-spacing:5px;">FOLLOW US
+      </p>
+      <div class="">
+
+         <a href="#" style="margin:10px 10px 10px 0px;"><ion-icon style="font-size:25px; color:#cdcdcd;"name="logo-facebook"></ion-icon></a>
+         <a href="#" style="margin:10px;"><ion-icon style="font-size:25px; color:#cdcdcd;"name="logo-instagram"></ion-icon></a>
+         <a href="#" style="margin:10px;"><ion-icon style="font-size:25px; color:#cdcdcd;"name="logo-twitter"></ion-icon></a>
+        <a href="#" style="margin:10px;"><ion-icon style="font-size:25px; color:#cdcdcd;"name="logo-google-playstore"></ion-icon></a>
+      </div>
+    <br>
+
+    </div>
+    <div class="col-md-2">
+      <h4 style="color:#fcfcfc; font-size:25px;">USEFUL LINKS</h4>
+      <br>
+      <a href="#" class="btn" style="color:#cdcdcd; ">ABOUT</a><br>
+      <a href="#" class="btn" style="color:#cdcdcd; ">LOGIN</a><br>
+      <a href="#" class="btn" style="color:#cdcdcd; ">SIGN UP</a><br>
+    </div>
+    <div class="col-md-4">
+      <h4 style="color:#fcfcfc; font-size:25px;">CONTACT INFO</h4>
+      <a class="btn" style="color:#cdcdcd; "><ion-icon style="transform:translateY(2px);" name="calculator-outline"></ion-icon>&nbsp&nbsp&nbsp +91 93820 38092</a><br>
+      <a class="btn" style="color:#cdcdcd; "><ion-icon style="transform:translateY(2px);" name="mail-outline"></ion-icon>&nbsp&nbsp&nbsp contact@restaurante.com</a><br>
+<br><br>
+    <a href="{% url 'login_url' %}" class="btn" style="width:100%;color:#fff;">
+      <div class="clean-btn">
+      LOGIN
+    </div>
+    </a>
+  </div>
+
+  </div>
+<div class="b" style="background:#fff3">
+
+</div>
+<div class="end">
+  <a href="#">Terms and Conditions </a> | <a href="#">Privacy</a> | <a href="#">2020 &#169; Restaurante</a>
+</div>
+<br>
+</div>
+</footer>
+
+{% endblock %}

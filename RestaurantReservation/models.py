@@ -3,7 +3,7 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+import datetime
 # Create your models here.
 
 class UserManager(BaseUserManager):
@@ -81,7 +81,7 @@ class Restaurant(models.Model):
     restaurant_name = models.CharField(max_length = 100)
     location = models.ForeignKey(Location,on_delete = models.CASCADE)
     username = models.ForeignKey(User, on_delete = models.CASCADE)
-    restaurant_id = models.CharField(max_length = 20, unique = True)
+    restaurant_id = models.CharField(max_length = 100, unique = True)
     description = models.CharField(max_length = 500)
     city = models.CharField(max_length = 50)
     ratingbystaff = models.PositiveIntegerField(default = 0, validators = [MinValueValidator(1),MaxValueValidator(5)])
@@ -98,18 +98,22 @@ class RestaurantTables(models.Model):
     nooftables = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.restaurant_id
+        return self.restaurant_id.restaurant_name
 
 class Reservation(models.Model):
+    reservation_id = models.CharField(max_length=100)
     restaurant_id = models.ForeignKey(Restaurant, on_delete = models.CASCADE)
     username = models.ForeignKey(User, on_delete = models.CASCADE)
-    datetime = models.DateTimeField()
-    leavingtime = models.DateTimeField()
+    date = models.DateField(default = datetime.date.today())
+    start_time = models.TimeField(default = datetime.datetime.now().time())
+    end_time = models.TimeField(default = datetime.datetime.now().time())
     tablesfor = models.CharField(max_length = 20)
     nooftables = models.CharField(max_length = 20)
+    otp = models.IntegerField(unique = True)
+    done = models.BooleanField(default = False)
 
     def __str__(self):
-        return self.username
+        return self.username.username
 
 class Review(models.Model):
     review_id = models.CharField(max_length=20)
@@ -123,14 +127,19 @@ class Review(models.Model):
     ratingbyhygiene = models.PositiveIntegerField(default = 0, validators = [MinValueValidator(1),MaxValueValidator(5)])
 
     def __str__(self):
-        return self.restaurant_id
+        return self.restaurant_name.restaurant_name
 
 class RestaurantPhotos(models.Model):
     restaurant_name = models.ForeignKey(Restaurant, on_delete = models.CASCADE)
+    CHOICES = (
+        ('NORMAL','NORMAL'),
+        ('FOOD','FOOD'),
+    )
+    ptype = models.CharField(max_length = 15, choices = CHOICES,default = "NORMAL")
     photos = models.ImageField(upload_to = 'img/')
 
     def __str__(self):
-        return self.restaurant_name
+        return self.restaurant_name.restaurant_name
 
 class CustomerPhotos(models.Model):
     restaurant_name = models.ForeignKey(Restaurant, on_delete = models.CASCADE)
@@ -138,4 +147,4 @@ class CustomerPhotos(models.Model):
     photos = models.ImageField(upload_to = 'img/')
 
     def __str__(self):
-        return self.restaurant_name
+        return self.restaurant_name.restaurant_name
