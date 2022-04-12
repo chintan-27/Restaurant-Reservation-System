@@ -71,9 +71,9 @@
 <div class="row">
   <div class="col-md-8  amazing">
     {% for i in restaurantphotos %}
-    {% ifequal i.ptype "NORMAL" %}
+    {% if i.ptype == "NORMAL" %}
     <img src="/media/{{i.photos}}" alt="" width="100%">
-    {% endifequal %}
+    {% endif %}
     {% endfor %}
     <br>
     <br>
@@ -84,9 +84,9 @@
     </div>
     <h3>Delicacies : </h3><br>
     {% for i in restaurantphotos %}
-    {% ifequal i.ptype "FOOD" %}
+    {% if i.ptype == "FOOD" %}
     <img src="/media/{{i.photos}}" alt="" width="100%">
-    {% endifequal %}
+    {% endif %}
     {% endfor %}
     <br><br>
     <div class="b">
@@ -121,7 +121,7 @@ border-radius:5px;
   <br><br>
 </div>
 {% for i in availability %}
-{% ifequal i|last "Available" %}
+{% if i|last == "Available" %}
 <div class="col-md-4" style="font-family:'Poppins';padding:10px">
   <center>
     <h2>TABLES AVAILABLE BOOK FAST!</h2>
@@ -136,7 +136,7 @@ border-radius:5px;
 <center>
   <h2>TABLES UNAVAILABLE</h2>
   </center>
-{% endifequal %}
+{% endif %}
 {% endfor %}
 </div>
 </div>

@@ -71,20 +71,20 @@
 {% for i in restaurants  %}
    <div class="col-md-4" style="">
      {% for k in availability %}
-     {% ifequal k.0 i.restaurant_name %}
-     {% ifequal k|last "Unavailable" %}
+     {% if k.0 == i.restaurant_name %}
+     {% if k|last == "Unavailable" %}
      <div class="cover">
        <p>Unavailable</p>
      </div>
-     {% endifequal %}
-     {% endifequal %}
+     {% endif %}
+     {% endif %}
      {% endfor %}
      <a href="/tables/{{i.restaurant_id}}/{{day}}/{{start_time}}/{{end_time}}/{{persons}}" class="rl">
      <div class="restaurant">
      {% for j in restaurantphotos %}
-     {% ifequal j.restaurant_name.restaurant_name i.restaurant_name %}
+     {% if j.restaurant_name.restaurant_name == i.restaurant_name %}
      <img src="/media/{{j.photos}}" alt="" style="width:100%;height:200px" >
-     {% endifequal %}
+     {% endif %}
      {% endfor %}
      <p class="name">{{i.restaurant_name}}</p>
      <p class="desc">{{i.description}}</p>

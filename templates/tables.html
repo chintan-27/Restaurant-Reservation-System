@@ -35,9 +35,9 @@
 <div class="row">
   <div class="col-md-8  amazing">
     {% for i in restaurantphotos %}
-    {% ifequal i.ptype "NORMAL" %}
+    {% if i.ptype == "NORMAL" %}
     <img src="/media/{{i.photos}}" alt="" width="100%">
-    {% endifequal %}
+    {% endif %}
     {% endfor %}
     <br>
     <br>
@@ -48,9 +48,9 @@
     </div>
     <h3>Delicacies : </h3><br>
     {% for i in restaurantphotos %}
-    {% ifequal i.ptype "FOOD" %}
+    {% if i.ptype == "FOOD" %}
     <img src="/media/{{i.photos}}" alt="" width="100%">
-    {% endifequal %}
+    {% endif %}
     {% endfor %}
     <br><br>
     <div class="b">
